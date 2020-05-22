@@ -1,0 +1,14 @@
+Python project for implementing a 3d playground.
+
+Features:
+- Rotation
+- Translation
+- Moving around the camera
+- Inserting dots
+- Inserting cubes, spheres, cilinders
+- Save and Load
+- Export to a 2d picture format
+- Export to a 3d format
+- Import froms other formats
+
+Use pygame
