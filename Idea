@@ -12,3 +12,11 @@ Features:
 - Import froms other formats
 
 Use pygame
+
+25/05
+
+- Rotação 3d
+- Desenho de linhas
+- Divisão de polígonos em triângulos
+- Cálculo do vetor normal às superfície
+- Implementar quaternions

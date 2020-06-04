@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
-import pygame, sys
+import pygame
+import sys
 from pygame.locals import *
-from time import sleep
 import controller
 
 pygame.init()
