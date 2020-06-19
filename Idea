@@ -1,10 +1,10 @@
 Python project for implementing a 3d playground.
 
 Features:
-- Rotation
-- Translation
-- Moving around the camera
-- Inserting dots
+- Rotation - ok
+- Translation - ok
+- Moving around the camera - ok
+- Inserting dots - ok
 - Inserting cubes, spheres, cilinders
 - Save and Load
 - Export to a 2d picture format
@@ -15,8 +15,21 @@ Use pygame
 
 25/05
 
-- Rotação 3d
+- Rotação 3d - ok
 - Desenho de linhas
 - Divisão de polígonos em triângulos
-- Cálculo do vetor normal às superfície
+- Cálculo do vetor normal às superfícies
 - Implementar quaternions
+
+14/06
+
+- Classe controle com todas as possíveis ações do jogo e settings
+- Função translate para invocar cada função da classe controle a partir de determinada ação do pygame
+- Calcular o centro geométrico de um polígono para realizar as rotações em torno desse ponto - a rotação poderá ser feita transladando o objeto até que o centro geométrico esteja em (0,0,0), rotacionando e transladando de volta ao ponto anterior
+- O cálculo do vetor normal à superfície (e o cálculo do ângulo entre este vetor e o vetor que liga a superfície ao ponto de luz) pode ser utilizado para determinar o tom da cor da superfície.
+- Função que recebe como input os pontos 2d gerados pela projeção, bem como a profundidade em relação à câmera, para determinar quais pontos, linhas e superfícies estão visíveis na renderização
+
+18/06
+
+- Cálculo dos vetores ortogonais ao ângulo de visada
+- Movimentação da câmera relativa ao ângulo de visada
