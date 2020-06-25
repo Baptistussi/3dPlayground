@@ -28,18 +28,23 @@ class Game:
         i = np.array((1,0,0))*self.scale
         j = np.array((0,1,0))*self.scale
         k = np.array((0,0,1))*self.scale
-        self.controls ={ # key: [function, argument]
-                    K_UP: [self.cam.move, k ],
-                    K_DOWN: [self.cam.move, -k ],
-                    K_z: [self.cam.change_zoom, -5],
-                    K_x: [self.cam.change_zoom, 5],
-                    K_w: [self.dots.rotate , k ], # roll
-                    K_s: [self.dots.rotate , -k  ], # roll
-                    K_a: [self.dots.rotate , -j  ], # pitch
-                    K_d: [self.dots.rotate , j ], # pitch
-                    K_q: [self.dots.rotate , -i  ], # yaw
-                    K_e: [self.dots.rotate , i ], # yaw
-        }
+        self.controls = {
+    K_LEFTBRACKET: [self.cam.move, k ],
+    K_RIGHTBRACKET: [self.cam.move, -k ],
+    K_z: [self.cam.change_zoom, -5],
+    K_x: [self.cam.change_zoom, 5],
+    K_UP: [self.cam.move, j ],
+    K_DOWN: [self.cam.move, -j ],
+    K_RIGHT: [self.cam.move, i ],
+    K_LEFT: [self.cam.move, -i ],
+    K_SPACE: [self.dots.read_points, 0],
+    K_w: [self.cam.turn , -k ], # roll
+    K_s: [self.cam.turn , k  ], # roll
+    K_a: [self.cam.turn , j  ], # pitch
+    K_d: [self.cam.turn , -j ], # pitch
+    K_q: [self.cam.turn , i  ], # yaw
+    K_e: [self.cam.turn , -i ], # yaw
+}
         # controls[key][0]( controls[key][1] )
     
     def set_camera(self):
@@ -56,7 +61,6 @@ class Game:
         pygame.display.update()
     
     def draw_dots(self):
-        self.SCREEN.fill((0,0,0))
         pts = self.cam.display( self.dots.get_points() )
         if pts!=[]:
             for pt in pts: pygame.draw.circle(self.SCREEN, (255, 255, 255), pt, 3)
@@ -82,7 +86,9 @@ class Game:
                             except:
                                 pass
             if self.clock.hasTicd():
+                self.SCREEN.fill((0,0,0))
                 self.draw_dots()
+                self.draw_lines()
                 pygame.display.update()
 
 def main():

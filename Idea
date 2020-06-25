@@ -25,7 +25,7 @@ Use pygame
 
 - Classe controle com todas as possíveis ações do jogo e settings
 - Função translate para invocar cada função da classe controle a partir de determinada ação do pygame
-- Calcular o centro geométrico de um polígono para realizar as rotações em torno desse ponto - a rotação poderá ser feita transladando o objeto até que o centro geométrico esteja em (0,0,0), rotacionando e transladando de volta ao ponto anterior
+- Calcular o centro geométrico de um polígono para realizar as rotações em torno desse ponto - a rotação poderá ser feita transladando o objeto até que o centro geométrico esteja em (0,0,0), rotacionando e transladando de volta ao ponto anterior - ok
 - O cálculo do vetor normal à superfície (e o cálculo do ângulo entre este vetor e o vetor que liga a superfície ao ponto de luz) pode ser utilizado para determinar o tom da cor da superfície.
 - Função que recebe como input os pontos 2d gerados pela projeção, bem como a profundidade em relação à câmera, para determinar quais pontos, linhas e superfícies estão visíveis na renderização
 
