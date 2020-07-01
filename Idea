@@ -16,7 +16,7 @@ Use pygame
 25/05
 
 - Rotação 3d - ok
-- Desenho de linhas
+- Desenho de linhas - ok
 - Divisão de polígonos em triângulos
 - Cálculo do vetor normal às superfícies
 - Implementar quaternions

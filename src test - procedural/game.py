@@ -7,7 +7,7 @@ from pygame.locals import *
 
 import Ticker
 import Camera
-import Objects
+import Tools
 
 pygame.init()
 
@@ -17,10 +17,10 @@ class Game:
         self.windowSize = (850,550)
         self.freq = 20
         self.scale = 10
-        #object
-        self.dots=Objects.Cube((0.,0.,30.),10.)
+        
         # set tools
         self.clock=Ticker.Ticker(self.freq)
+        self.dots=Tools.PointCollection()
         self.set_camera()
         self.set_controls()
     
@@ -29,21 +29,26 @@ class Game:
         j = np.array((0,1,0))*self.scale
         k = np.array((0,0,1))*self.scale
         self.controls = {
-                    K_UP: [self.cam.move, k ],
-                    K_DOWN: [self.cam.move, -k ],
-                    K_z: [self.cam.change_zoom, -5],
-                    K_x: [self.cam.change_zoom, 5],
-                    K_w: [self.dots.rotate , k ], # roll
-                    K_s: [self.dots.rotate , -k  ], # roll
-                    K_a: [self.dots.rotate , -j  ], # pitch
-                    K_d: [self.dots.rotate , j ], # pitch
-                    K_q: [self.dots.rotate , -i  ], # yaw
-                    K_e: [self.dots.rotate , i ], # yaw
-        }
+    K_LEFTBRACKET: [self.cam.move, k ],
+    K_RIGHTBRACKET: [self.cam.move, -k ],
+    K_z: [self.cam.change_zoom, -5],
+    K_x: [self.cam.change_zoom, 5],
+    K_UP: [self.cam.move, j ],
+    K_DOWN: [self.cam.move, -j ],
+    K_RIGHT: [self.cam.move, i ],
+    K_LEFT: [self.cam.move, -i ],
+    K_SPACE: [self.dots.read_points, 0],
+    K_w: [self.cam.turn , -k ], # roll
+    K_s: [self.cam.turn , k  ], # roll
+    K_a: [self.cam.turn , j  ], # pitch
+    K_d: [self.cam.turn , -j ], # pitch
+    K_q: [self.cam.turn , i  ], # yaw
+    K_e: [self.cam.turn , -i ], # yaw
+}
         # controls[key][0]( controls[key][1] )
     
     def set_camera(self):
-        pos=np.array((5,5,0))
+        pos=np.array((0,0,0))
         s=np.array((0,0,0))
         z=85
         self.cam=Camera.Camera(pos,s,self.windowSize,z)
@@ -55,23 +60,13 @@ class Game:
         print "Display Initialized"
         pygame.display.update()
     
-    def get_projection(self):
-        self.points = self.cam.display( self.dots.get_points() )
-        self.dots.update_projection(self.points)
-        self.lines = self.dots.get_2d_lines()
-        
-    def draw_points(self):
-        if self.points!=[]:
-            for pt in self.points:
-                if pt: pygame.draw.circle(self.SCREEN, (255, 255, 255), pt, 3)
+    def draw_dots(self):
+        pts = self.cam.display( self.dots.get_points() )
+        if pts!=[]:
+            for pt in pts: pygame.draw.circle(self.SCREEN, (255, 255, 255), pt, 3)
     
     def draw_lines(self):
-        if self.lines!=[]:
-            for l in self.lines:
-                try:
-                    pygame.draw.line(self.SCREEN, (255,255,255), l[0], l[1], 1)
-                except:
-                    pass
+        pass
     
     def loopGame(self):
         print "Starting Main Loop"
@@ -92,14 +87,18 @@ class Game:
                                 pass
             if self.clock.hasTicd():
                 self.SCREEN.fill((0,0,0))
-                self.get_projection()
-                self.draw_points()
+                self.draw_dots()
                 self.draw_lines()
                 pygame.display.update()
 
 def main():
     game=Game()
     game.setup()
+    
+    my_cube=[ (5,5,20), (5,-5,20), (-5,5,20), (-5,-5,20), (5,5,30), (5,-5,30), (-5,5,30), (-5,-5,30) ]
+    #my_cube=[ (1,1,15), (1,-1,15), (-1,1,15), (-1,-1,15), (1,1,5), (1,-1,5), (-1,1,5), (-1,-1,5) ]
+    game.dots.import_points(my_cube)
+    
     game.loopGame()
 
 if __name__ == "__main__":

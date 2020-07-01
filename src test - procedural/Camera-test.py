@@ -1,8 +1,6 @@
 import math
 import numpy as np
 
-import Tools
-
 class Camera:
     def __init__(self, pos, sight, screen_size=(850,550), zoom_angle=85):
         self.pos=pos# use np array
@@ -33,7 +31,7 @@ class Camera:
     
     def rotate_points(self, points):
         rotation_angles=(-self.sight[0], -self.sight[1], -self.sight[2])
-        rpoints=[Tools.Point( point.get_rotated_coor(rotation_angles) ) for point in points]
+        point.get_rotated_coor(rotation_angles)
         return rpoints
     
     def move_points(self, points):
@@ -46,14 +44,11 @@ class Camera:
         for point in points:
             if point.is_visible(self.zoom_angle):
                 vpoints.append(point)
-            else:
-                vpoints.append(False)
         return vpoints
     
     def project(self, point):
-        if not point: return False
         x,y,z=point
-        if z==0: return False
+        if z<=0: return False
         else:
             xl=self.focus*x/z
             yl=self.focus*y/z
@@ -66,12 +61,10 @@ class Camera:
         dpoints=[]
         for point in vpoints:
             dpoint=self.project(point)
-            if dpoint:
+            if dpoint!=False:
                 x,y=dpoint
                 x=int( x + self.screen_size[0]/2 )
                 y=int( self.screen_size[1]/2 - y )
                 dpoints.append( (x,y) )
-            else:
-                dpoints.append(False)
         return dpoints
 
